@@ -34,7 +34,7 @@ const Introduce = () => {
       const userId = decodedToken.userId;
 
       const response = await axios.post(
-        "http://localhost:5000/api/problem/submit",
+        `${process.env.REACT_APP_API_URL}/api/problem/submit`,
         { answer, problemId: 6, userId },
         { headers: { "Content-Type": "application/json" } }
       );
@@ -44,7 +44,7 @@ const Introduce = () => {
       if (response.data.isCorrect === true) {
 
         const updateResponse = await axios.post(
-          "http://localhost:5000/api/user/update-problem",
+          `${process.env.REACT_APP_API_URL}/api/user/update-problem`,
           { userId }
         );
 

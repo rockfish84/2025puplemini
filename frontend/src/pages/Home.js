@@ -22,7 +22,7 @@ const Home = () => {
 
         // 사용자 정보 가져와 currentProblemId 업데이트
         axios
-          .get(`http://localhost:5000/api/user/${decodedToken.userId}`)
+          .get(`${process.env.REACT_APP_API_URL}/api/user/${decodedToken.userId}`)
           .then((res) => {
             setUser((prev) => ({
               ...prev,

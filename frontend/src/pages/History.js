@@ -28,7 +28,7 @@ const History = () => {
 
       // 사용자 정보 가져오기
       axios
-        .get(`http://localhost:5000/api/user/${userData.userId}`)
+        .get(`${process.env.REACT_APP_API_URL}/api/user/${userData.userId}`)
         .then((res) => {
           const { currentProblemId } = res.data;
 

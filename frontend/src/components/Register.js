@@ -18,7 +18,7 @@ const Register = () => {
     setMessage("");
 
     try {
-      const response = await axios.post("z/api/register", {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/register`, {
         username,
         email,
         password,

@@ -6,7 +6,8 @@ const User = require("../models/User");
 require("dotenv").config();
 
 const router = express.Router();
-
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
+const API_URL = process.env.API_URL || "http://localhost:5000";
 // 이메일 인증을 위한 nodemailer 설정
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
@@ -48,7 +49,7 @@ router.post("/register", async (req, res) => {
 
     const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-    const verificationLink = `http://localhost:5000/api/verify-email?token=${token}`;
+    const verificationLink = `${API_URL}/api/verify-email?token=${token}`;
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
@@ -86,7 +87,7 @@ router.get("/verify-email", async (req, res) => {
     user.isVerified = true;
     await user.save();
 
-    res.redirect("http://localhost:3000/login");
+    res.redirect(`${CLIENT_URL}/login`);
   } catch (error) {
     res.status(400).json({ message: "유효하지 않은 또는 만료된 토큰입니다." });
   }
@@ -185,7 +186,7 @@ router.post("/password-reset-request", async (req, res) => {
       { expiresIn: "15m" }
     );
 
-    const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
+    const resetLink = `${CLIENT_URL}/reset-password?token=${resetToken}`;
 
     const mailOptions = {
       from: process.env.EMAIL_USER,

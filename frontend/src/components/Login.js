@@ -13,7 +13,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/login",
+        `${process.env.REACT_APP_API_URL}/api/login`,
         { username, password },
         { headers: { "Content-Type": "application/json" } }
       );
